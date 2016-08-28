@@ -62,7 +62,12 @@ namespace InfluxData.Net.Kapacitor.ClientModules
                 { QueryParams.Dbrps, HttpUtility.UrlEncode(dbrps) }
             };
 
-            return await base.RequestClient.PostAsync(RequestPaths.Task, requestParams, taskParams.TickScript); //.ConfigureAwait(false);
+            return await base.RequestClient.PostAsync(RequestPaths.Task, requestParams, taskParams.TickScript).ConfigureAwait(false);
+        }
+
+        public virtual async Task<IInfluxDataApiResponse> DefineTaskAsync(DefineTemplatedTaskParams taskParams)
+        {
+            throw new InvalidOperationException("Method not applicable to this version of InfluxDB");
         }
 
         public virtual async Task<IInfluxDataApiResponse> DeleteTaskAsync(string taskName)

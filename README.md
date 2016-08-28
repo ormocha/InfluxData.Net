@@ -23,6 +23,10 @@ Currently older supported versions:
 **Installation**
 You can download the [InfluxData.Net Nuget](https://www.nuget.org/packages/InfluxData.Net/) package to install the latest version of InfluxData.Net Lib.
 
+## Contributing
+
+Please apply your changes to the [develop branch](https://github.com/pootzko/InfluxData.Net/tree/develop) it makes it a bit easier and cleaner for me to keep everything in order. For extra points in the FLOSS hall of fame, write a few tests for your awesome contribution as well. :) Thanks for your help!
+
 ## Usage
 
 To use InfluxData.Net InfluxDbClient you must first create an instance of `InfluxDbClient`:
@@ -62,7 +66,10 @@ If needed, a custom HttpClient can be used for making requests. Simply pass it i
  - _[GetMeasurementsAsync()](#getmeasurementsasync)_
  - _[DropMeasurementAsync()](#dropmeasurementasync)_
 - [Retention](#retention-module)
+ - _[CreateRetentionPolicyAsync()](#createretentionpolicyasync)_
+ - _[GetRetentionPoliciesAsync()](#getretentionpoliciesasync)_
  - _[AlterRetentionPolicyAsync()](#alterretentionpolicyasync)_
+ - _[DropRetentionPolicyAsync()](#dropretentionpolicyasync)_
 - [Diagnostics](#diagnostics-module)
  - _[PingAsync()](#pingasync)_
  - _[GetStatsAsync()](#getstatsasync)_
@@ -299,12 +306,36 @@ var response = await influxDbClient.Serie.DropMeasurementAsync("yourDbName", "me
 
 This module currently supports only a single [retention-policy](https://docs.influxdata.com/influxdb/v0.9/query_language/database_management/#retention-policy-management) action.
 
+#### CreateRetentionPolicyAsync
+
+This example creates the _retentionPolicyName_ policy to _1h_ and 3 copies:
+
+```cs
+var response = await influxDbClient.Retention.CreateRetentionPolicyAsync("yourDbName", "retentionPolicyName", "1h", 3);
+```
+
+#### GetRetentionPoliciesAsync
+
+Gets a list of all retention policies in the speified database:
+
+```cs
+var response = await influxDbClient.Retention.GetRetentionPoliciesAsync("yourDbName");
+```
+
 #### AlterRetentionPolicyAsync
 
 This example alter the _retentionPolicyName_ policy to _1h_ and 3 copies:
 
 ```cs
 var response = await influxDbClient.Retention.AlterRetentionPolicyAsync("yourDbName", "retentionPolicyName", "1h", 3);
+```
+
+#### DropRetentionPolicyAsync
+
+This example drops the _retentionPolicyName_ policycopies:
+
+```cs
+var response = await influxDbClient.Retention.AlterRetentionPolicyAsync("yourDbName", "retentionPolicyName");
 ```
 
 ### Diagnostics Module
@@ -380,12 +411,14 @@ var taskParams = new DefineTaskParams()
 
 ```
 
-After that simpyl call the `DefineTaskAsync` to create a new task:
+After that simply call the `DefineTaskAsync` to create a new task:
 
 ```cs
 var response = await kapacitorClient.Task.DefineTaskAsync(taskParams);
 
 ```
+
+You can also define tasks using the `DefineTemplatedTaskParams` as well. This allows you to define tasks with [template](https://docs.influxdata.com/kapacitor/v1.0/examples/template_tasks/) ID's instad of specifying the TICKscript and type directly.
 
 #### DeleteTaskAsync
 

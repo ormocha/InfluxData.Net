@@ -40,12 +40,22 @@ namespace InfluxData.Net.Integration.Kapacitor.Tests
         [Fact]
         public virtual async Task DefineTemplateTask_OnValidArguments_ShouldDefineSuccessfully()
         {
+<<<<<<< HEAD
+=======
+            // TODO: refactor
+
+>>>>>>> upstream/master
             #region Arrange
 
             Dictionary<string, object> defineTemplateDictionary = new Dictionary<string, object>()
             {
+<<<<<<< HEAD
                 {"id", "TestTemplate"},
                 {"type", "stream"},
+=======
+                { "id", "TestTemplate" },
+                { "type", "stream" },
+>>>>>>> upstream/master
                 {
                     "script",
                     "var measurement string\nvar where_filter = lambda: TRUE\nvar info = lambda: TRUE\n  stream\n     |from()\n         .measurement(measurement)\n         .where(where_filter)\n     |alert()\n          .info(info)\n          .log('/home/or/templateLog') "
@@ -55,7 +65,11 @@ namespace InfluxData.Net.Integration.Kapacitor.Tests
             string kapacitorUrl = ConfigurationManager.AppSettings.Get("kapacitorEndpointUri_v_1_0_0");
             var content = JsonConvert.SerializeObject(defineTemplateDictionary);
             HttpClient client = new HttpClient();
+<<<<<<< HEAD
             client.PostAsync(string.Format("{0}/kapacitor/v1/templates", kapacitorUrl), new StringContent(content)).Wait();
+=======
+            client.PostAsync(String.Format("{0}/kapacitor/v1/templates", kapacitorUrl), new StringContent(content)).Wait();
+>>>>>>> upstream/master
 
             #endregion
 
@@ -64,7 +78,11 @@ namespace InfluxData.Net.Integration.Kapacitor.Tests
             var response = await _fixture.Sut.Task.DefineTaskAsync(taskParams);
             response.Success.Should().BeTrue();
 
+<<<<<<< HEAD
             client.DeleteAsync(string.Format("{0}/kapacitor/v1/templates/{1}", kapacitorUrl, taskParams.TemplateId)).Wait();
+=======
+            client.DeleteAsync(String.Format("{0}/kapacitor/v1/templates/{1}", kapacitorUrl, taskParams.TemplateId)).Wait();
+>>>>>>> upstream/master
         }
 
         [Fact]

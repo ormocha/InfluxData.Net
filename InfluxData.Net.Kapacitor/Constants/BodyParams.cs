@@ -10,6 +10,10 @@
         public const string RetentionPolicy = "rp";
         public const string Script = "script";
         public const string TemplateId = "template-id";
+<<<<<<< HEAD
         public const string TemplateVars = "vars";
+=======
+        public const string Vars = "vars";
+>>>>>>> upstream/master
     }
 }
