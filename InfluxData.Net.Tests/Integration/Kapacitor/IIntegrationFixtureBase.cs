@@ -23,11 +23,7 @@ namespace InfluxData.Net.Integration.Kapacitor
 
         DefineTaskParams MockDefineTaskParams();
 
-<<<<<<< HEAD
-        TemplateTaskParams MockTemplateTaskParams();
-=======
         DefineTemplatedTaskParams MockTemplateTaskParams();
->>>>>>> upstream/master
 
         #endregion Data Mocks
     }
